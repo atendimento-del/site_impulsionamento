@@ -20,7 +20,20 @@
     dataHora: ""
   };
 </script>
-<!-- Pixel da Meta: quando tiver, cole o código aqui -->
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2253297481919750');
+fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel Code -->
 
 <style>
 :root{--or:#F04B13;--dk:#141210;--cr:#FAF3EE;--mu:#7A6E66}
@@ -49,6 +62,7 @@ p.lead{font-size:18px;line-height:1.5;color:var(--mu);max-width:30ch}
 </style>
 </head>
 <body>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2253297481919750&ev=PageView&noscript=1" alt=""></noscript>
 <main>
   <span class="logo" aria-label="AgentFlow"><span class="a">Agent</span><span class="f">FLOW</span></span>
 
@@ -75,7 +89,13 @@ p.lead{font-size:18px;line-height:1.5;color:var(--mu);max-width:30ch}
   var c=window.LIVE||{};
   document.querySelectorAll('.js-link').forEach(function(a){
     a.href=c.linkGrupo||'#';
-    a.addEventListener('click',function(){ if(typeof window.fbq==='function'){window.fbq('track','Lead');} });
+    a.addEventListener('click',function(ev){
+      if(typeof window.fbq==='function' && a.href.indexOf('http')===0){
+        ev.preventDefault();
+        window.fbq('track','Lead',{content_name:'Grupo WhatsApp - Live'});
+        setTimeout(function(){ window.location.href=a.href; },350);
+      }
+    });
   });
   if(c.dataHora){document.querySelectorAll('[data-when]').forEach(function(e){e.textContent=c.dataHora;});}
 })();
